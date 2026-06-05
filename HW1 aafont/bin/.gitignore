@@ -1,16 +1,4 @@
-/applicationMain/
 /database/
-/entityClasses/
-/guiAddRemoveRoles/
 /guiAdminHome/
-/guiFirstAdmin/
-/guiMultipleRoleDispatch/
-/guiNewAccount/
 /guiRemoveUser/
-/guiRole1/
-/guiRole2/
-/guiTools/
-/guiUserLogin/
-/guiUserUpdate/
-/module-info.class
-/usernameRecognizer/
+/guiListUsers/

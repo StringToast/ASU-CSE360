@@ -1,4 +1,4 @@
-package guiRemoveUser.java;
+package guiRemoveUser;
 
 /*******
  * <p> Title: ModelDeleteUser Class. </p>

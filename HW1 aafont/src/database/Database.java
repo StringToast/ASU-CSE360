@@ -374,7 +374,29 @@ public class Database {
 		return numberOfRoles;
 	}	
 
-	
+	/*******
+	 * <p> Method: int getNumberOfAdmins() </p>
+	 * 
+	 * <p> Description: Determine the number of users in the database who play the Admin role.
+	 * This is used to ensure that the system always retains at least one admin so that admin
+	 * work can continue to be performed.</p>
+	 *  
+	 * @return the number of users that play the Admin role.
+	 * 
+	 */
+	// Number of users playing the Admin role in the database
+	public int getNumberOfAdmins() {
+		String query = "SELECT COUNT(*) AS count FROM userDB WHERE adminRole = TRUE";
+		try {
+			ResultSet resultSet = statement.executeQuery(query);
+			if (resultSet.next()) {
+				return resultSet.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	/*******
 	 * <p> Method: String generateInvitationCode(String emailAddress, String role) </p>
 	 * 
