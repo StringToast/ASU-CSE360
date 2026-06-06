@@ -96,6 +96,7 @@ public class ViewUserUpdate {
 	
 	// These are the set of pop-up dialog boxes that are used to enable the user to change the
 	// the values of the various account detail items.
+	private static TextInputDialog dialogUpdatePassword; //6/6
 	private static TextInputDialog dialogUpdateFirstName;
 	private static TextInputDialog dialogUpdateMiddleName;
 	private static TextInputDialog dialogUpdateLastName;
@@ -215,6 +216,7 @@ public class ViewUserUpdate {
 		theUserUpdateScene = new Scene(theRootPane, width, height);
 
 		// Initialize the pop-up dialogs to an empty text filed.
+		dialogUpdatePassword = new TextInputDialog(""); //6/6
 		dialogUpdateFirstName = new TextInputDialog("");
 		dialogUpdateMiddleName = new TextInputDialog("");
 		dialogUpdateLastName = new TextInputDialog("");
@@ -222,6 +224,9 @@ public class ViewUserUpdate {
 		dialogUpdateEmailAddresss = new TextInputDialog("");
 
 		// Establish the label for each of the dialogs.
+		dialogUpdatePassword.setTitle("Update Password"); //6/6
+		dialogUpdatePassword.setHeaderText("Update your Password"); 
+		
 		dialogUpdateFirstName.setTitle("Update First Name");
 		dialogUpdateFirstName.setHeaderText("Update your First Name");
 		
@@ -255,6 +260,14 @@ public class ViewUserUpdate {
         setupLabelUI(label_Password, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 150);
         setupLabelUI(label_CurrentPassword, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 150);
         setupButtonUI(button_UpdatePassword, "Dialog", 18, 275, Pos.CENTER, 500, 143);
+        button_UpdatePassword.setOnAction((_) -> {result = dialogUpdatePassword.showAndWait();//6/6
+    	result.ifPresent(_ -> theDatabase.updatePassword(theUser.getUserName(), result.get()));
+    	theDatabase.getUserAccountDetails(theUser.getUserName());
+     	String newPassword = theDatabase.getCurrentPassword();
+       	theUser.setPassword(newPassword);
+    	if (newPassword == null || newPassword.length() < 1)label_CurrentPassword.setText("<none>");
+    	else label_CurrentPassword.setText(newPassword);
+     	});
         
         // First Name
         setupLabelUI(label_FirstName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 200);

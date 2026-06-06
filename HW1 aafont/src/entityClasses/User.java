@@ -28,6 +28,9 @@ public class User {
     private boolean adminRole;
     private boolean role1;
     private boolean role2;
+    private boolean student;//Kylie
+    private boolean instructor;
+    private boolean staff;
     
     
     /*****
@@ -59,7 +62,7 @@ public class User {
      */
     // Constructor to initialize a new User object with userName, password, and role.
     public User(String userName, String password, String fn, String mn, String ln, String pfn, 
-    		String ea, boolean r1, boolean r2, boolean r3) {
+    		String ea, boolean r1, boolean r2, boolean r3, boolean r4, boolean r5, boolean r6) {
         this.userName = userName;
         this.password = password;
         this.firstName = fn;
@@ -70,6 +73,9 @@ public class User {
         this.adminRole = r1;
         this.role1 = r2;
         this.role2 = r3;
+        this.student = r4; //Kylie
+        this.instructor = r5;
+        this.staff = r6;
     }
 
     
@@ -113,8 +119,22 @@ public class User {
     public void setRole2User(boolean role) {
     	this.role2=role;
     }
-
+//Kylie
+    public void setStudentUser(boolean role)
+    {
+    	this.student=role;
+    }
     
+    public void setInstructorUser(boolean role)
+    {
+    	this.instructor=role;
+    }
+    
+    public void setStaffUser(boolean role)
+    {
+    	this.staff=role;
+    }
+
     /*****
      * <p> Method: String getUserName() </p>
      * 
@@ -241,6 +261,21 @@ public class User {
      */
     // Gets the current value of the role2 attribute.
     public boolean getNewRole2() { return role2; }
+    
+    public boolean getStudentRole() 
+    {
+    	return student;
+    }
+    
+    public boolean getInstructorRole()
+    {
+    	return instructor;
+    }
+    
+    public boolean getStaffRole()
+    {
+    	return staff;
+    }
 
         
     /*****
@@ -257,6 +292,9 @@ public class User {
     	if (adminRole) numRoles++;
     	if (role1) numRoles++;
     	if (role2) numRoles++;
+    	if (student) numRoles++; //Kylie
+    	if (instructor) numRoles++;
+    	if (staff) numRoles++;
     	return numRoles;
     }
 }

@@ -109,8 +109,7 @@ public class ControllerFirstAdmin {
 		// Make sure the two passwords are the same
 		if (adminPassword1.compareTo(adminPassword2) == 0) {
         	// Create the passwords and proceed to the user home page
-        	User user = new User(adminUsername, adminPassword1, "", "", "", "", "", true, false, 
-        			false);
+        	User user = new User(adminUsername, adminPassword1, "", "", "", "", "", true, false, false, false, false, false);
             try {
             	// Create a new User object with admin role and register in the database
             	theDatabase.register(user);

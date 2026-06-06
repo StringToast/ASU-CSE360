@@ -60,6 +60,9 @@ public class Database {
 	private boolean currentAdminRole;
 	private boolean currentNewRole1;
 	private boolean currentNewRole2;
+	private boolean currentStudent; //6/6
+	private boolean currentInstructor;
+	private boolean currentStaff;
 
 	/*******
 	 * <p> Method: Database </p>
@@ -116,7 +119,10 @@ public class Database {
 				+ "emailAddress VARCHAR(255), "
 				+ "adminRole BOOL DEFAULT FALSE, "
 				+ "newRole1 BOOL DEFAULT FALSE, "
-				+ "newRole2 BOOL DEFAULT FALSE)";
+				+ "newRole2 BOOL DEFAULT FALSE,"
+				+ "student BOOL DEFAULT FALSE," //6/6
+				+ "instructor BOOL DEFAULT FALSE,"
+				+ "staff BOOL DEFAULT FALSE)";
 		statement.execute(userTable);
 		
 		// Create the invitation codes table
@@ -184,8 +190,8 @@ public class Database {
  */
 	public void register(User user) throws SQLException {
 		String insertUser = "INSERT INTO userDB (userName, password, firstName, middleName, "
-				+ "lastName, preferredFirstName, emailAddress, adminRole, newRole1, newRole2) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "lastName, preferredFirstName, emailAddress, adminRole, newRole1, newRole2, student, instructor, staff) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (PreparedStatement pstmt = connection.prepareStatement(insertUser)) {
 			currentUsername = user.getUserName();
 			pstmt.setString(1, currentUsername);
@@ -216,6 +222,13 @@ public class Database {
 			
 			currentNewRole2 = user.getNewRole2();
 			pstmt.setBoolean(10, currentNewRole2);
+			//6/6
+			currentStudent = user.getStudentRole();
+			pstmt.setBoolean(11,  currentStudent);
+			currentInstructor = user.getInstructorRole();
+			pstmt.setBoolean(12, currentInstructor);
+			currentStaff = user.getStaffRole();
+			pstmt.setBoolean(13, currentStaff);
 			
 			pstmt.executeUpdate();
 		}
@@ -596,6 +609,30 @@ public class Database {
 	    }
 	    return false;
 	}
+	//Added 6/6 
+		/*******
+		 * <p> Method: void updateFirstName(String username, String firstName) </p>
+		 * 
+		 * <p> Description: Update the first name of a user given that user's username and the new
+		 *		first name.</p>
+		 * 
+		 * @param username is the username of the user
+		 * 
+		 * @param firstName is the new first name for the user
+		 *  
+		 */
+		// update the first name
+		public void updatePassword(String username, String password) {
+		    String query = "UPDATE userDB SET password = ? WHERE username = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setString(1, password);
+		        pstmt.setString(2, username);
+		        pstmt.executeUpdate();
+		        currentPassword = password;
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		}
 	/*******
 	 * <p> Method: String getFirstName(String username) </p>
 	 * 
@@ -886,6 +923,9 @@ public class Database {
 	    	currentAdminRole = rs.getBoolean(9);
 	    	currentNewRole1 = rs.getBoolean(10);
 	    	currentNewRole2 = rs.getBoolean(11);
+	    	currentStudent = rs.getBoolean(12);
+	    	currentInstructor = rs.getBoolean(13);
+	    	currentStaff = rs.getBoolean(14);
 			return true;
 	    } catch (SQLException e) {
 			return false;
@@ -1095,7 +1135,11 @@ public class Database {
 	 */
 	public boolean getCurrentNewRole2() { return currentNewRole2;};
 
-	
+	//6/6
+
+	public boolean getStudentRole() { return currentStudent;};
+	public boolean getInstructorRole() { return currentInstructor;}
+	public boolean getStaffRole() { return currentStaff;}
 	/*******
 	 * <p> Debugging method</p>
 	 * 
