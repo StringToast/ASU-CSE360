@@ -1,7 +1,6 @@
 package guiAdminHome;
 
 import database.Database;
-import guiRemoveUser.viewRemoveUser;
 
 /*******
  * <p> Title: GUIAdminHomePage Class. </p>
@@ -92,15 +91,12 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: manageInvitations () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method that allows an admin to manage outstanding invitations.
+	 * This is done by invoking the Manage Invitations Page.</p>
 	 */
 	protected static void manageInvitations () {
-		System.out.println("\n*** WARNING ***: Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("Manage Invitations Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
+		guiManageInvitations.ViewManageInvitations.displayManageInvitations(
+				ViewAdminHome.theStage, ViewAdminHome.theUser);
 	}
 	
 	/**********
@@ -108,15 +104,13 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: setOnetimePassword () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method that allows an admin to set a one-time password for a
+	 * user who has forgotten their password.  This is done by invoking the Set One-Time Password
+	 * Page.</p>
 	 */
-	protected static void setOnetimePassword () {
-		System.out.println("\n*** WARNING ***: One-Time Password Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("One-Time Password Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("One-Time Password Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
+	protected static void setOneTimePassword () {
+		guiSetOneTimePassword.ViewSetOneTimePassword.displaySetOnetimePassword(
+				ViewAdminHome.theStage, ViewAdminHome.theUser);
 	}
 	
 	/**********
@@ -138,8 +132,8 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: listUsers () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method that allows an admin to list all user accounts. This is
+	 * done by invoking the List Users Page.</p>
 	 */
 	protected static void listUsers() {
 	    guiListUsers.ViewListUsers.displayListUsers(ViewAdminHome.theStage,
