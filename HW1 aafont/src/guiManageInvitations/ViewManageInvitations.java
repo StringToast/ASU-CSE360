@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+// Test Git Change
 /*******
  * <p> Title: ViewManageInvitations Class. </p>
  * 
