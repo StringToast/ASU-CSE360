@@ -55,7 +55,7 @@ public class ViewNewAccount {
     protected static Button button_UserSetup = new Button("User Setup");
     protected static TextField text_Invitation = new TextField();
     protected static Label label_Username_Error =  new Label();
-
+    protected static Label label_PasswordError =  new Label();
 	// This alert is used should the invitation code be invalid
     protected static Alert alertInvitationCodeIsInvalid = new Alert(AlertType.INFORMATION);
 
@@ -137,7 +137,7 @@ public class ViewNewAccount {
     	// Place all of the established GUI elements into the pane
     	theRootPane.getChildren().clear();
     	theRootPane.getChildren().addAll(label_NewUserCreation, label_NewUserLine, text_Username, label_Username_Error,
-    			text_Password1, text_Password2, button_UserSetup, button_Quit);    	
+    			label_PasswordError, text_Password1, text_Password2, button_UserSetup, button_Quit);    	
 
 		// Set the title for the window, display the page, and wait for the Admin to do something
 		theStage.setTitle("CSE 360 Foundation Code: New User Account Setup");	
@@ -184,6 +184,9 @@ public class ViewNewAccount {
 		// Establish the text input operand field to confirm the password
 		setupTextUI(text_Password2, "Arial", 18, 300, Pos.BASELINE_LEFT, 50, 290, true);
 		text_Password2.setPromptText("Enter the Password Again");
+		
+		// Label to display password format error message
+		setupLabelUI(label_PasswordError, "Arial", 14, width, Pos.CENTER, 0, 330);
 		
 		// If the invitation code is wrong, this alert dialog will tell the user
 		alertInvitationCodeIsInvalid.setTitle("Invalid Invitation Code");

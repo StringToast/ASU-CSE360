@@ -58,6 +58,7 @@ public class ViewFirstAdmin {
 	
 	protected static Label label_UsernameError = new Label();
 	protected static Label label_PasswordsDoNotMatch = new Label();
+	protected static Label label_PasswordError = new Label();
 	protected static TextField text_AdminUsername = new TextField();
 	protected static PasswordField text_AdminPassword1 = new PasswordField();
 	protected static PasswordField text_AdminPassword2 = new PasswordField();
@@ -187,11 +188,13 @@ public class ViewFirstAdmin {
 
 		setupButtonUI(button_Quit, "Dialog", 18, 250, Pos.CENTER, 300, 520);
 		button_Quit.setOnAction((_) -> {ControllerFirstAdmin.performQuit(); });
+		// Label to display the password format error message
+		setupLabelUI(label_PasswordError, "Arial", 18, width, Pos.CENTER, 0, 340);
 
 		// Place all of the just-initialized GUI elements into the pane
 		theRootPane.getChildren().addAll(label_ApplicationTitle, label_TitleLine1,
 				label_TitleLine2, text_AdminUsername,label_UsernameError, text_AdminPassword1, 
-				text_AdminPassword2, button_AdminSetup, label_PasswordsDoNotMatch,
+				text_AdminPassword2, button_AdminSetup, label_PasswordsDoNotMatch, label_PasswordError,
 				button_Quit);
 	}
 	

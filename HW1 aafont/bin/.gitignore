@@ -1,4 +1,8 @@
-/database/
-/guiAdminHome/
-/guiRemoveUser/
-/guiListUsers/
+/applicationMain/
+/floatingPointRecognizer/
+/passwordPopUpWindow/
+/passwordEvaluationTestbedMain/
+/guiFirstAdmin/
+/guiNewAccount/
+/nameRecognizer/
+/guiUserUpdate/

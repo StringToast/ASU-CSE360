@@ -1,6 +1,7 @@
 package guiFirstAdmin;
 
 import java.sql.SQLException;
+import passwordPopUpWindow.Model;
 import database.Database;
 import entityClasses.User;
 import javafx.stage.Stage;
@@ -80,6 +81,7 @@ public class ControllerFirstAdmin {
 	protected static void setAdminPassword1() {
 		adminPassword1 = ViewFirstAdmin.text_AdminPassword1.getText();
 		ViewFirstAdmin.label_PasswordsDoNotMatch.setText("");
+		ViewFirstAdmin.label_PasswordError.setText("");
 	}
 	
 	
@@ -93,6 +95,7 @@ public class ControllerFirstAdmin {
 	protected static void setAdminPassword2() {
 		adminPassword2 = ViewFirstAdmin.text_AdminPassword2.getText();		
 		ViewFirstAdmin.label_PasswordsDoNotMatch.setText("");
+		ViewFirstAdmin.label_PasswordError.setText("");
 	}
 	
 	
@@ -108,6 +111,12 @@ public class ControllerFirstAdmin {
 		
 		// Make sure the two passwords are the same
 		if (adminPassword1.compareTo(adminPassword2) == 0) {
+			// Passwords match, check that the password satisfies format requirements
+			String passwordError = Model.evaluatePassword(adminPassword1);
+			if(!passwordError.isEmpty()) {
+				ViewFirstAdmin.label_PasswordError.setText(passwordError);
+				return;
+			}
         	// Create the passwords and proceed to the user home page
         	User user = new User(adminUsername, adminPassword1, "", "", "", "", "", true, false, false, false, false, false);
             try {
