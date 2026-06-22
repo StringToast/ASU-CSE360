@@ -86,14 +86,6 @@ public class ControllerNewAccount {
 		// Make sure the two passwords are the same.	
 		if (ViewNewAccount.text_Password1.getText().
 				compareTo(ViewNewAccount.text_Password2.getText()) == 0) {
-			// The passwords match so we will check for formatting errors before 
-			// using it for account setup
-			String passwordError = passwordPopUpWindow.Model.evaluatePassword(password);
-		    if (!passwordError.isEmpty()) {
-		        ViewNewAccount.label_PasswordError.setText(passwordError);
-		        return;
-		    }
-		    ViewNewAccount.label_PasswordError.setText("");
 			
 			// The passwords match so we will set up the role and the User object base on the 
 			// information provided in the invitation

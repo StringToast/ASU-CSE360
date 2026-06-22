@@ -273,84 +273,57 @@ public class ViewUserUpdate {
         setupLabelUI(label_FirstName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 200);
         setupLabelUI(label_CurrentFirstName, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 200);
         setupButtonUI(button_UpdateFirstName, "Dialog", 18, 275, Pos.CENTER, 500, 193);
-        button_UpdateFirstName.setOnAction((_) -> {
-        	result = dialogUpdateFirstName.showAndWait();
-        	result.ifPresent(_ -> {
-        		String nameError = nameRecognizer.NameRecognizer.checkForValidName(result.get());
-        		if(!nameError.isEmpty()) {
-        			dialogUpdateFirstName.setContentText(nameError);
-        			return;
-        		}
-        		theDatabase.updateFirstName(theUser.getUserName(), result.get());
-        	});
+        button_UpdateFirstName.setOnAction((_) -> {result = dialogUpdateFirstName.showAndWait();
+        	result.ifPresent(_ -> theDatabase.updateFirstName(theUser.getUserName(), result.get()));
         	theDatabase.getUserAccountDetails(theUser.getUserName());
          	String newName = theDatabase.getCurrentFirstName();
            	theUser.setFirstName(newName);
         	if (newName == null || newName.length() < 1)label_CurrentFirstName.setText("<none>");
         	else label_CurrentFirstName.setText(newName);
-        });
+         	});
+               
         // Middle Name
         setupLabelUI(label_MiddleName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 250);
         setupLabelUI(label_CurrentMiddleName, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 250);
         setupButtonUI(button_UpdateMiddleName, "Dialog", 18, 275, Pos.CENTER, 500, 243);
-        button_UpdateMiddleName.setOnAction((_) -> {
-        	result = dialogUpdateMiddleName.showAndWait();
-        	result.ifPresent(_ -> {
-        		String nameError = nameRecognizer.NameRecognizer.checkForValidName(result.get());
-        		if(!nameError.isEmpty()) {
-        			dialogUpdateMiddleName.setContentText(nameError);
-        			return;
-        		}
-        		theDatabase.updateMiddleName(theUser.getUserName(), result.get());
-        	});
-        	theDatabase.getUserAccountDetails(theUser.getUserName());
-        	String newName = theDatabase.getCurrentMiddleName();
+        button_UpdateMiddleName.setOnAction((_) -> {result = dialogUpdateMiddleName.showAndWait();
+    		result.ifPresent(_ -> theDatabase.updateMiddleName(theUser.getUserName(), result.get()));
+    		theDatabase.getUserAccountDetails(theUser.getUserName());
+    		String newName = theDatabase.getCurrentMiddleName();
            	theUser.setMiddleName(newName);
         	if (newName == null || newName.length() < 1)label_CurrentMiddleName.setText("<none>");
         	else label_CurrentMiddleName.setText(newName);
-        });
+    		});
         
         // Last Name
         setupLabelUI(label_LastName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 300);
         setupLabelUI(label_CurrentLastName, "Arial", 18, 260, Pos.BASELINE_LEFT, 200, 300);
         setupButtonUI(button_UpdateLastName, "Dialog", 18, 275, Pos.CENTER, 500, 293);
-        button_UpdateLastName.setOnAction((_) -> {
-        	result = dialogUpdateLastName.showAndWait();
-        	result.ifPresent(_ -> {
-        		String nameError = nameRecognizer.NameRecognizer.checkForValidName(result.get());
-        		if(!nameError.isEmpty()) {
-        			dialogUpdateLastName.setContentText(nameError);
-        			return;
-        		}
-        		theDatabase.updateLastName(theUser.getUserName(), result.get());
-        	});
-        	theDatabase.getUserAccountDetails(theUser.getUserName());
-        	String newName = theDatabase.getCurrentLastName();
+        button_UpdateLastName.setOnAction((_) -> {result = dialogUpdateLastName.showAndWait();
+    		result.ifPresent(_ -> theDatabase.updateLastName(theUser.getUserName(), result.get()));
+    		theDatabase.getUserAccountDetails(theUser.getUserName());
+    		String newName = theDatabase.getCurrentLastName();
            	theUser.setLastName(newName);
-        	if (newName == null || newName.length() < 1)label_CurrentLastName.setText("<none>");
+      	if (newName == null || newName.length() < 1)label_CurrentLastName.setText("<none>");
         	else label_CurrentLastName.setText(newName);
-        });
+    		});
         
         // Preferred First Name
-        setupLabelUI(label_PreferredFirstName, "Arial", 18, 190, Pos.BASELINE_RIGHT,5, 350);
-        setupLabelUI(label_CurrentPreferredFirstName, "Arial", 18, 260, Pos.BASELINE_LEFT,200, 350);
+        setupLabelUI(label_PreferredFirstName, "Arial", 18, 190, Pos.BASELINE_RIGHT, 
+        		5, 350);
+        setupLabelUI(label_CurrentPreferredFirstName, "Arial", 18, 260, Pos.BASELINE_LEFT, 
+        		200, 350);
         setupButtonUI(button_UpdatePreferredFirstName, "Dialog", 18, 275, Pos.CENTER, 500, 343);
-        button_UpdatePreferredFirstName.setOnAction((_) -> {
-        	result = dialogUpdatePreferredFirstName.showAndWait();
-        	result.ifPresent(_ -> {
-        		String nameError = nameRecognizer.NameRecognizer.checkForValidName(result.get());
-        		if(!nameError.isEmpty()) {
-        			dialogUpdatePreferredFirstName.setContentText(nameError);
-        			return;
-        		}
-        		theDatabase.updatePreferredFirstName(theUser.getUserName(), result.get());
-        	});
-        	theDatabase.getUserAccountDetails(theUser.getUserName());
-        	String newName = theDatabase.getCurrentPreferredFirstName();
+        button_UpdatePreferredFirstName.setOnAction((_) -> 
+        	{result = dialogUpdatePreferredFirstName.showAndWait();
+    		result.ifPresent(_ -> 
+    		theDatabase.updatePreferredFirstName(theUser.getUserName(), result.get()));
+    		theDatabase.getUserAccountDetails(theUser.getUserName());
+    		String newName = theDatabase.getCurrentPreferredFirstName();
            	theUser.setPreferredFirstName(newName);
-        	if (newName == null || newName.length() < 1)label_CurrentPreferredFirstName.setText("<none>");
+         	if (newName == null || newName.length() < 1)label_CurrentPreferredFirstName.setText("<none>");
         	else label_CurrentPreferredFirstName.setText(newName);
-        });
+     		});
         
         // Email Address
         setupLabelUI(label_EmailAddress, "Arial", 18, 190, Pos.BASELINE_RIGHT, 5, 400);
