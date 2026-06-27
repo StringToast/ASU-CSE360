@@ -1,7 +1,8 @@
 package entityClasses;
 
 import java.time.LocalDateTime;
-
+import java.util.HashSet;
+import java.util.Set;
 /*******
  * <p> Title: Post Class. </p>
  * 
@@ -31,6 +32,10 @@ public class Post {
 	private String author;// The username of the user who created the post
 	private String thread;// The thread this post belongs to
 	private LocalDateTime timestamp;// When the post was created
+	private String postType;	// the kind of post
+	private boolean deleted;	// soft-delete
+	private String visibility;	// forward-design for the Staff epic's audience control
+	private Set<String> readByUsers;
 
 	
 	/*****
@@ -49,12 +54,18 @@ public class Post {
 	 * @param thread specifies the thread this post belongs to
 	 * 
 	 */
-	public Post(int id, String content, String author, String thread) {
+	public Post(int id, String content, String author, String thread, String postType) {
 		this.id = id;
 		this.content = content;
 		this.author = author;
 		this.thread = thread;
+		this.postType = postType;			
 		this.timestamp = LocalDateTime.now();
+		this.deleted = false;			
+		this.visibility = "ALL";			
+		this.readByUsers = new HashSet<>();	
+		if (author != null)					
+			this.readByUsers.add(author);
 	}
 
 	
@@ -84,7 +95,13 @@ public class Post {
 		// The content is valid
 		return "";
 	}
-
+	public static String checkForValidType(String postType) {
+		if (postType == null || postType.isEmpty())
+			return "*** Error *** A post must have a type of Question or Statement.";
+		if (!postType.equalsIgnoreCase("Question") && !postType.equalsIgnoreCase("Statement"))
+			return "*** Error *** A post type must be either Question or Statement.";
+		return "";
+	}
 	
 	/*
 	 * The getters for this entity object
@@ -134,6 +151,19 @@ public class Post {
 	public LocalDateTime getTimestamp() {
 		return timestamp; 
 		}
+	public String getPostType(){ 
+		return postType; 
+		}
+	public boolean isDeleted(){ 
+		return deleted; 
+		}
+	public String getVisibility(){ 
+		return visibility; 
+		}
+	
+	public boolean isReadBy(String username){ 
+		return readByUsers.contains(username); 
+	}
 
 	
 	/*
@@ -159,5 +189,17 @@ public class Post {
 	 */
 	public void setThread(String thread) {
 		this.thread = thread; 
+		}
+	public void setPostType(String postType){ 
+		this.postType = postType; 
+		}
+	public void setVisibility(String visibility){ 
+		this.visibility = visibility; 
+		}
+	public void markDeleted(){ 
+		this.deleted = true; 
+		}
+	public void markRead(String username){ 
+		this.readByUsers.add(username); 
 		}
 }

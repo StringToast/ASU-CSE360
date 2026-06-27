@@ -1,7 +1,8 @@
 package entityClasses;
 
 import java.time.LocalDateTime;
-
+import java.util.HashSet;
+import java.util.Set;
 /*******
  * <p> Title: Reply Class. </p>
  * 
@@ -27,13 +28,14 @@ public class Reply {
 	/*
 	 * These are the private attributes for this entity object
 	 */
-	private int id;					// The unique id assigned by the replies manager
-	private String content;			// The body text of the reply
-	private String author;			// The username of the user who created the reply
-	private int parentId;			// The id of the post or reply this reply answers
-	private boolean parentIsPost;	// true if the parent is a post, false if it is a reply
-	private LocalDateTime timestamp;	// When the reply was created
-
+	private int id;// The unique id assigned by the replies manager
+	private String content;// The body text of the reply
+	private String author;// The username of the user who created the reply
+	private int parentId;// The id of the post or reply this reply answers
+	private boolean parentIsPost;// true if the parent is a post, false if it is a reply
+	private LocalDateTime timestamp;// When the reply was created
+	private String visibility;  // forward-design for the Staff epic's private feedback
+	private Set<String> readByUsers;//usernames that have read this post
 	
 	/*****
 	 * <p> Method: Reply(int id, String content, String author, int parentId,
@@ -61,6 +63,10 @@ public class Reply {
 		this.parentId = parentId;
 		this.parentIsPost = parentIsPost;
 		this.timestamp = LocalDateTime.now();
+		this.visibility = "ALL";			
+		this.readByUsers = new HashSet<>();
+		if (author != null)					
+			this.readByUsers.add(author);
 	}
 
 	
@@ -139,6 +145,12 @@ public class Reply {
 	public LocalDateTime getTimestamp() { 
 		return timestamp; 
 		}
+	public String getVisibility(){ 
+		return visibility; 
+		}
+	public boolean isReadBy(String username)
+	{ return readByUsers.contains(username); 
+	}
 
 	
 	/*
@@ -154,5 +166,11 @@ public class Reply {
 	 */
 	public void setContent(String content) { 
 		this.content = content; 
+		}
+	public void setVisibility(String visibility){ 
+		this.visibility = visibility; 
+		}
+	public void markRead(String username){ 
+		this.readByUsers.add(username); 
 		}
 }

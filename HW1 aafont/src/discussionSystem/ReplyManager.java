@@ -118,7 +118,23 @@ public class ReplyManager {
 		reply.setContent(newContent);
 		return "";
 	}
-
+	public boolean markReplyRead(int id, String username) {
+		Reply reply = findById(id);
+		if (reply == null)
+			return false;
+		reply.markRead(username);
+		return true;
+	}
+	public List<Reply> getUnreadRepliesTo(int parentId, boolean parentIsPost, String username) {
+		List<Reply> matches = new ArrayList<Reply>();
+		for (Reply reply : replies) {
+			if (reply.getParentId() == parentId
+					&& reply.getParentIsPost() == parentIsPost
+					&& !reply.isReadBy(username))
+				matches.add(reply);
+		}
+		return matches;
+	}
 	
 	/*****
 	 * <p> Method: boolean deleteReply(int id) </p>

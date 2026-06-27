@@ -52,23 +52,33 @@ public class PostManager {
 	 * @return the new post's id on success, or -1 if the content was not valid
 	 * 
 	 */
-	public int createPost(String content, String author, String thread) {
-		//validate the content before anything is stored
+	public int createPost(String content, String author, String thread, String postType) {
 		String error = Post.checkForValidContent(content);
 		if (!error.isEmpty()) {
 			lastErrorMessage = error;
 			return -1;
 		}
-		
-		//The content is valid, so assign the next id, create the post, and store it
+
+		// NEW — validate the kind of post as well
+		String typeError = Post.checkForValidType(postType);
+		if (!typeError.isEmpty()) {
+			lastErrorMessage = typeError;
+			return -1;
+		}
+
 		lastErrorMessage = "";
-		Post post = new Post(nextId, content, author, thread);
+		Post post = new Post(nextId, content, author, thread, postType);	// NEW arg
 		posts.add(post);
-		nextId++;					//Advance the counter so the next post gets a fresh id
+		nextId++;
 		return post.getId();
 	}
-
-	
+	public boolean markPostRead(int id, String username) {
+		Post post = findById(id);
+		if (post == null)
+			return false;
+		post.markRead(username);
+		return true;
+	}
 	/*****
 	 * <p> Method: Post readPost(int id) </p>
 	 * 
@@ -105,7 +115,8 @@ public class PostManager {
 		Post post = findById(id);
 		if (post == null)
 			return "*** Error *** No post exists with id " + id + ".";
-		
+		if (post.isDeleted())
+			return "*** Error *** No post exists with id " + id + ".";
 		// Validate the replacement content before changing anything
 		String error = Post.checkForValidContent(newContent);
 		if (!error.isEmpty())
@@ -130,9 +141,9 @@ public class PostManager {
 	 */
 	public boolean deletePost(int id) {
 		Post post = findById(id);
-		if (post == null)
+		if (post == null || post.isDeleted())	//can't delete a missing or already deleted post
 			return false;
-		posts.remove(post);
+		post.markDeleted();	// keep it in the list so its replies can show "original post deleted"
 		return true;
 	}
 
@@ -153,7 +164,7 @@ public class PostManager {
 		List<Post> matches = new ArrayList<Post>();
 		String lowerKeyword = keyword.toLowerCase();
 		for (Post post : posts) {
-			if (post.getContent().toLowerCase().contains(lowerKeyword))
+			if (!post.isDeleted() && post.getContent().toLowerCase().contains(lowerKeyword))
 				matches.add(post);
 		}
 		return matches;
@@ -175,7 +186,7 @@ public class PostManager {
 	public List<Post> searchByAuthor(String author) {
 		List<Post> matches = new ArrayList<Post>();
 		for (Post post : posts) {
-			if (post.getAuthor().equalsIgnoreCase(author))
+			if (!post.isDeleted() && post.getAuthor().equalsIgnoreCase(author))
 				matches.add(post);
 		}
 		return matches;
@@ -193,7 +204,11 @@ public class PostManager {
 	 * 
 	 */
 	public List<Post> getAllPosts() {
-		return new ArrayList<Post>(posts);
+		List<Post> active = new ArrayList<Post>();
+		for (Post post : posts)
+			if (!post.isDeleted())
+				active.add(post);
+		return active;
 	}
 
 	
